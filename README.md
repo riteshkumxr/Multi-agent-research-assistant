@@ -1,153 +1,230 @@
-# Multi-Agent Research Assistant
+<div align="center">
 
-A collaborative **Agent-to-Agent (A2A)** system built using **LangChain** and **LangGraph**, designed to generate detailed and well-structured research reports through intelligent agent cooperation.  
+# 🧠 Nexus Multi-Agent Research Assistant
 
-![LangGraph Architecture](assets/research_graph.png)  
-*System architecture built with LangGraph illustrating multi-agent collaboration.*
+### *An Autonomous Agent Swarm for Automated Deep Web Research & Synthesis*
 
-##  Project Structure
+[![Python](https://img.shields.io/badge/Python-3.12%2B-blue?logo=python&logoColor=white)](https://www.python.org/)
+[![LangGraph](https://img.shields.io/badge/Orchestration-LangGraph-orange?logo=langchain&logoColor=white)](https://langchain-ai.github.io/langgraph/)
+[![LangChain](https://img.shields.io/badge/Framework-LangChain-1C3C3C?logo=langchain&logoColor=white)](https://python.langchain.com/)
+[![Streamlit](https://img.shields.io/badge/Frontend-Streamlit-FF4B4B?logo=streamlit&logoColor=white)](https://streamlit.io/)
+[![Together AI](https://img.shields.io/badge/LLM-Together_AI-6366f1?logo=openai&logoColor=white)](https://www.together.ai/)
+[![Tavily](https://img.shields.io/badge/Search-Tavily_AI-06b6d4)](https://tavily.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
+<br/>
+
+<img src="assets/research_graph.png" alt="Multi-Agent Topology" width="700"/>
+
+<p align="center">
+  <b>Supervisor</b> ➔ <b>Researcher</b> ➔ <b>Writer</b> ➔ <b>Critiquer</b> ➔ <b>Iterative Refinement Loop</b>
+</p>
+
+</div>
+
+---
+
+## 🌟 Overview
+
+The **Nexus Multi-Agent Research Assistant** is an intelligent **Agent-to-Agent (A2A)** collaborative swarm designed to automate complex, in-depth research. Built on **LangChain** and **LangGraph**, it coordinates four specialized AI agents that autonomously gather real-time web intelligence, synthesize structured drafts, review publication standards, and iteratively refine until an approved, high-caliber report is produced.
+
+---
+
+## ✨ Features
+
+- 🎯 **Four Specialized Autonomous Agents**:
+  - **Supervisor**: Deconstructs research queries and directs workflow decisions dynamically.
+  - **Researcher**: Gathers real-time web intelligence and sources using Tavily Search API.
+  - **Writer**: Synthesizes structured, publication-grade markdown reports from raw data.
+  - **Critiquer**: Rigorously audits depth, factual accuracy, and clarity, demanding revisions when needed.
+- 🎨 **Modern Interactive UI**:
+  - Glassmorphic design with custom typography (`Plus Jakarta Sans`).
+  - **☀️ Light / 🌙 Dark Mode Switcher** with high-contrast elements.
+  - **One-Click Topic Suggestions** for instant exploratory research.
+- 📡 **Real-Time Live Swarm Activity Stream**:
+  - Color-coded badges per agent with expandable findings and feedback logs.
+- 📊 **Executive Analytics & Multi-Format Export**:
+  - Word count, source packet tracking, review cycles, and reading time estimation.
+  - Export reports instantly as **Markdown (`.md`)** or **Plain Text (`.txt`)**.
+- 🔑 **Built-In API Credential Manager**:
+  - Live **🧪 Test Keys** tool to verify connectivity before running.
+  - One-click **💾 Save .env** persistence.
+
+---
+
+## 🤖 Multi-Agent Workflow
+
+```mermaid
+flowchart TD
+    Start([User Topic]) --> Supervisor
+    Supervisor["🎯 Supervisor Agent"] -->|Directs Task| Researcher["🔍 Researcher Agent (Tavily Search)"]
+    Researcher -->|Extracted Findings| Supervisor
+    Supervisor -->|Ready to Draft| Writer["✍️ Writer Agent (Synthesis)"]
+    Writer -->|Generated Draft| Critiquer["🔎 Critiquer Agent (Quality Audit)"]
+    Critiquer -->|Approved| Done([📄 Final Research Report])
+    Critiquer -->|Revisions Needed| Supervisor
 ```
-multi_agent_researcher/
-├── assets/
-│   └── (graph visualizations saved here)
-├── .env
-├── requirements.txt
-├── prompts.py
-├── agents.py
-├── graph.py
-├── visualize_graph.py
-├── app.py
-└── README.md
-```
 
-##  Installation
+| Agent | Icon | Role | Technology |
+| :--- | :---: | :--- | :--- |
+| **Supervisor** | 🎯 | Orchestrates workflow, breaks down tasks, and delegates steps | LangGraph + Together AI |
+| **Researcher** | 🔍 | Queries web sources, parses articles, and compiles facts | Tavily Search API |
+| **Writer** | ✍️ | Synthesizes findings into comprehensive reports | Together AI (`Mixtral-8x7B`) |
+| **Critiquer** | 🔎 | Quality audits reports and enforces publication standards | Together AI (`Mixtral-8x7B`) |
 
-### Prerequisites
+---
 
-- Python 3.9 or higher
-- pip package manager
-- (Optional) Graphviz for graph visualization
+## 🚀 Quickstart Guide
 
-### Step 1: Clone or Create Project Directory
+### 1. Prerequisites
+
+- **Python 3.12+** installed ([Download Python](https://www.python.org/downloads/))
+- **Git** installed ([Download Git](https://git-scm.com/))
+- Free API Keys:
+  - **Together AI API Key**: Sign up free at [together.ai](https://www.together.ai/) *(powers the LLM)*
+  - **Tavily Search API Key**: Sign up free at [tavily.com](https://tavily.com/) *(1,000 free searches/month)*
+
+---
+
+### 2. Clone the Repository
 
 ```bash
-mkdir multi_agent_researcher
-cd multi_agent_researcher
+git clone https://github.com/riteshkumxr/Multi-agent-research-assistant.git
+cd Multi-agent-research-assistant
 ```
 
-### Step 2: Install Python Dependencies
+---
+
+### 3. Create a Virtual Environment
+
+#### Windows (PowerShell):
+```powershell
+py -3.12 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+```
+
+#### macOS / Linux:
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+---
+
+### 4. Install Dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-### Step 3: Configure Environment Variables
+---
 
-Create a `.env` file in the root directory:
+### 5. Configure API Credentials
+
+Create a `.env` file in the project root:
 
 ```bash
-# Get API key from https://www.together.ai/
+# Windows
+Copy-Item .env.example .env
+
+# macOS / Linux
+cp .env.example .env
+```
+
+Open `.env` and fill in your keys:
+
+```env
 TOGETHER_API_KEY=your_together_api_key_here
-
-# Get API key from https://tavily.com/
-TAVILY_API_KEY=your_tavily_api_key_here
+TAVILY_API_KEY=tvly-your_tavily_api_key_here
 ```
 
-**Getting API Keys:**
+> **Note**: You can also enter or test your keys directly within the Streamlit sidebar web interface without modifying `.env` manually!
 
-1. **Together AI**: Sign up at [together.ai](https://www.together.ai/) and create an API key
-2. **Tavily**: Sign up at [tavily.com](https://tavily.com/) and get your API key
+---
 
-### Step 4: (Optional) Install Graphviz for Visualization
+### 6. (Optional) Run the Test Suite
 
-**Ubuntu/Debian:**
+Verify that all agent tools and execution chains pass:
+
 ```bash
-sudo apt-get install graphviz graphviz-dev
+pytest
 ```
 
-**macOS:**
-```bash
-brew install graphviz
-```
+---
 
-**Windows:**
-```bash
-choco install graphviz
+### 7. (Optional) Generate Graph Topology Diagram
 
-```
-
-## 🎯 Usage
-
-### Generate Workflow Visualization (Optional)
+Generate an updated architecture diagram in `assets/research_graph.png`:
 
 ```bash
 python visualize_graph.py
 ```
 
-This creates a visual diagram of the agent workflow in `assets/research_graph.png`
+---
 
-### Run the Streamlit Application
+### 8. Launch the Web Application
+
+Start the Streamlit dashboard:
 
 ```bash
 streamlit run app.py
 ```
 
-The app will open in your browser at `http://localhost:8501`
+Open your browser at:
+👉 **`http://localhost:8501`**
 
-## 🤖 How It Works
+---
 
-The system uses four specialized AI agents that work together:
-
-1. ** Supervisor Agent**
-   - Coordinates the entire workflow
-   - Decides which agent should work next
-   - Manages task delegation
-
-2. ** Researcher Agent**
-   - Searches the web for relevant information
-   - Uses Tavily search API
-   - Gathers and compiles research findings
-
-3. ** Writer Agent**
-   - Creates research reports from findings
-   - Revises drafts based on feedback
-   - Ensures coherent and well-structured output
-
-4. ** Critiquer Agent**
-   - Reviews drafts for quality
-   - Provides actionable feedback
-   - Approves final reports
-
-### Workflow
+## 📁 Project Structure
 
 ```
-Start → Supervisor → Researcher → Supervisor → Writer → Critiquer → Supervisor
-                ↑                                                        ↓
-                └────────────────── (loop until approved) ──────────────┘
+Multi-agent-research-assistant/
+├── assets/
+│   └── research_graph.png      # Architecture workflow visualization
+├── tests/
+│   └── test_tools.py           # Unit tests for agents & toolchains
+├── .env.example                # Template for environment credentials
+├── .gitignore                  # Prevents secrets & virtualenvs from leaking
+├── agents.py                   # Agent definitions (Supervisor, Researcher, Writer, Critiquer)
+├── app.py                      # Modern Streamlit UI with Dark/Light theme switching
+├── graph.py                    # LangGraph StateGraph orchestration
+├── prompts.py                  # Engineered prompts for each agent persona
+├── pyproject.toml              # Project metadata & package configurations
+├── requirements.txt            # Python dependencies
+└── visualize_graph.py          # Generates graph topology diagram
 ```
 
-##  Troubleshooting
+---
 
-### Common Issues
+## 🛠️ Troubleshooting
 
-**1. Import Errors**
-```bash
-# Reinstall all dependencies
-pip install -r requirements.txt --upgrade
-```
+<details>
+<summary><b>1. Error: "Together AI: Error code 401 - Invalid API key provided"</b></summary>
+<br/>
+Make sure you copied your key from <a href="https://api.together.ai/settings/api-keys">Together AI API Keys</a>. Together AI keys are 64-character hexadecimal strings (e.g., <code>8f7b...</code>) and do <b>not</b> start with <code>key_</code>.
+</details>
 
-**2. API Key Errors**
-- Verify your `.env` file is in the project root
-- Check that API keys are correct and active
-- Ensure no extra spaces in the `.env` file
+<details>
+<summary><b>2. Error: "No final report was generated. Please verify your API key credits and retry"</b></summary>
+<br/>
+Open the sidebar in the web app and click <b>🧪 Test Keys</b>. This will diagnose whether Together AI or Tavily has exhausted its free quota.
+</details>
 
-**3. Together AI Connection Issues**
-- The code uses Together AI's OpenAI-compatible endpoint
-- Ensure your API key has sufficient credits
-- Check network connectivity
+<details>
+<summary><b>3. PowerShell Execution Policy Restriction</b></summary>
+<br/>
+If PowerShell prevents activating the virtual environment, run:
+<pre><code>Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</code></pre>
+</details>
 
-**4. Graphviz Installation Issues**
-- Graphviz is optional for visualization
-- The app will work without it
-- If needed, follow
+---
+
+## 📜 License
+
+This project is licensed under the **MIT License** — feel free to modify and build upon it!
+
+---
+
+<div align="center">
+  <sub>Built with ❤️ using <b>LangGraph</b>, <b>Together AI</b>, and <b>Tavily</b></sub>
+</div>
